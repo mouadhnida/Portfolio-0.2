@@ -5,6 +5,7 @@ import { Pacifico } from "next/font/google";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const pacifico = Pacifico({
   weight: "400",
@@ -18,10 +19,42 @@ const links = [
   { url: "/contact", title: "Contact" },
 ];
 
+const topVariant = {
+  open: { rotate: 45 },
+  closed: { rotate: 0 },
+};
+
+const centerVariant = {
+  open: { opacity: 0 },
+  closed: { opacity: 1 },
+};
+
+const bottomVariant = {
+  open: { rotate: -45 },
+  closed: { rotate: 0 },
+};
+
+const listVariant = {
+  open: {
+    x: 0,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.2,
+    },
+  },
+  closed: {
+    x: "100vw",
+  },
+};
+
+const itemListVariant = {
+  open: { opacity: 1, y: 0 },
+  closed: { opacity: 0, y: -10 },
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
-  console.log(pathName);
   console.log(isOpen);
 
   return (
@@ -53,30 +86,42 @@ export default function Navbar() {
         onClick={() => setIsOpen((prev) => !prev)}
         className="bored-red-500 relative z-50 flex h-8 w-10 flex-col justify-between sm:hidden"
       >
-        <div
+        <motion.div
+          animate={isOpen ? "open" : "closed"}
+          variants={topVariant}
+          className={`h-1 w-10 origin-left rounded ${isOpen ? "bg-white" : "bg-black"}`}
+        ></motion.div>
+        <motion.div
+          animate={isOpen ? "open" : "closed"}
+          variants={centerVariant}
           className={`h-1 w-10 rounded ${isOpen ? "bg-white" : "bg-black"}`}
-        ></div>
-        <div
-          className={`h-1 w-10 rounded ${isOpen ? "bg-white" : "bg-black"}`}
-        ></div>
-        <div
-          className={`h-1 w-10 rounded ${isOpen ? "bg-white" : "bg-black"}`}
-        ></div>
+        ></motion.div>
+        <motion.div
+          animate={isOpen ? "open" : "closed"}
+          variants={bottomVariant}
+          className={`h-1 w-10 origin-left rounded ${isOpen ? "bg-white" : "bg-black"}`}
+        ></motion.div>
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-0 flex h-screen w-screen flex-col items-center justify-center gap-8 bg-black text-3xl text-white sm:hidden">
+        <motion.div
+          variants={listVariant}
+          initial="closed"
+          animate="open"
+          className="absolute left-0 top-0 flex h-screen w-screen flex-col items-center justify-center gap-8 bg-black text-3xl text-white sm:hidden"
+        >
           {links.map((link) => (
-            <Link
-              onClick={() => setIsOpen(false)}
-              href={link.url}
-              key={link.title}
-              className={""}
-            >
-              {link.title}
-            </Link>
+            <motion.div variants={itemListVariant} key={link.title}>
+              <Link
+                onClick={() => setIsOpen(false)}
+                href={link.url}
+                className={""}
+              >
+                {link.title}
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
       {/* LOGO */}
       <div
