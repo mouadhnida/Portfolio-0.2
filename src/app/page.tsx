@@ -1,11 +1,19 @@
+"use client";
+
 import Button from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import handcoding from "../../public/hand-coding-animate.svg";
+import handcoding from "../../public/hand-coding-animate1.svg";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="mt-12 xl:mt-28 xl:flex xl:w-full 2xl:mt-40">
+    <motion.div
+      initial={{ y: "-200vh" }}
+      animate={{ y: "0vh" }}
+      transition={{ duration: 0.5 }}
+      className="mt-12 px-4 sm:px-8 md:px-20 xl:mt-28 xl:flex xl:w-full xl:px-48 2xl:mt-40"
+    >
       <div className="flex justify-center xl:w-1/2">
         <Image src={handcoding} alt="Picture of hand coding animate" />
       </div>
@@ -33,6 +41,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

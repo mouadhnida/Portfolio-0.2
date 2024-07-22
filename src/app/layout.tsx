@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import TransitionProvider from "@/components/transitionProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -18,12 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${inter.className}`}>
-        <div className="relative mx-auto min-h-screen w-screen bg-gradient-to-b from-customBlue to-customGreen px-4 sm:px-8 md:px-20 xl:px-48">
-          <div className="h-24">
-            <Navbar />
-          </div>
-          {children}
-        </div>
+        <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
   );

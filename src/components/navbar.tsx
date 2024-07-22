@@ -58,7 +58,7 @@ export default function Navbar() {
   console.log(isOpen);
 
   return (
-    <div className="flex h-full items-center justify-between">
+    <div className="flex h-full items-center justify-between px-4 sm:px-8 md:px-20 xl:px-48">
       {/* RESPONSIVE LOGO*/}
       <div
         className={`${pacifico.className} ${isOpen ? "text-white sm:text-black" : "text-black"} z-10 w-1/4 text-2xl lg:hidden`}
